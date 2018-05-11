@@ -93,15 +93,14 @@ extension OrderSummaryViewController {
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         if tableView == ordersByYearTableView {
-            let cell = tableView.dequeueReusableCell(withIdentifier: "yearCell")
+            let cell = tableView.dequeueReusableCell(withIdentifier: "yearCell") as! UITableViewCell
             
-            
-            cell?.textLabel?.text = "email: \(yearlyOrderData[indexPath.row].email), date: \(yearlyOrderData[indexPath.row].createdDate), total price: \(yearlyOrderData[indexPath.row].totalPrice)"
-            return cell!
+            cell.textLabel?.text = "email: \(yearlyOrderData[indexPath.row].email), date: \(yearlyOrderData[indexPath.row].createdDate), total price: \(yearlyOrderData[indexPath.row].totalPrice)"
+            return cell
         }
         
-        let cell = tableView.dequeueReusableCell(withIdentifier: "cell")
-        cell?.textLabel?.text = "\(provinceData[indexPath.row].orderCount) orders from \(provinceData[indexPath.row].province)"
-        return cell!
+        let cell = tableView.dequeueReusableCell(withIdentifier: "cell") as! UITableViewCell
+        cell.textLabel?.text = "\(provinceData[indexPath.row].orderCount) orders from \(provinceData[indexPath.row].province)"
+        return cell
     }
 }

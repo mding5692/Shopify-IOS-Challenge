@@ -121,7 +121,7 @@
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <prototypes>
-                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" rowHeight="24" id="gzM-Or-Nzp">
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="provinceCell" rowHeight="24" id="gzM-Or-Nzp">
                                         <rect key="frame" x="0.0" y="28" width="375" height="24"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="gzM-Or-Nzp" id="bxN-yo-OWp">
@@ -142,6 +142,9 @@
                         <color key="backgroundColor" red="0.63137254899999995" green="0.54901960780000003" blue="0.81960784310000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <viewLayoutGuide key="safeArea" id="knv-aJ-T73"/>
                     </view>
+                    <connections>
+                        <outlet property="provincesTableView" destination="FoD-hh-izr" id="5yO-fw-v9U"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="YBS-Cs-WRH" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
