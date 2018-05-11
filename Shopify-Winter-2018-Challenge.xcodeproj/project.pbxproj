@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		AA24253020A5827A00C178E4 /* ProvinceViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA24252F20A5827A00C178E4 /* ProvinceViewController.swift */; };
 		AA97579620A519A700E012B0 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA97579520A519A700E012B0 /* AppDelegate.swift */; };
 		AA97579820A519A700E012B0 /* OrderSummaryViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA97579720A519A700E012B0 /* OrderSummaryViewController.swift */; };
 		AA97579B20A519A700E012B0 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = AA97579920A519A700E012B0 /* Main.storyboard */; };
@@ -42,6 +43,7 @@
 		091E2CFE4830E3591F101E3D /* Pods-Shopify-Winter-2018-ChallengeTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Shopify-Winter-2018-ChallengeTests.release.xcconfig"; path = "Pods/Target Support Files/Pods-Shopify-Winter-2018-ChallengeTests/Pods-Shopify-Winter-2018-ChallengeTests.release.xcconfig"; sourceTree = "<group>"; };
 		3492DD182BE89AF75C757708 /* Pods_Shopify_Winter_2018_ChallengeTests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Shopify_Winter_2018_ChallengeTests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		48058A468A47AAED09CA35C0 /* Pods_Shopify_Winter_2018_Challenge.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Shopify_Winter_2018_Challenge.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		AA24252F20A5827A00C178E4 /* ProvinceViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProvinceViewController.swift; sourceTree = "<group>"; };
 		AA97579220A519A700E012B0 /* Shopify-Winter-2018-Challenge.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Shopify-Winter-2018-Challenge.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		AA97579520A519A700E012B0 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		AA97579720A519A700E012B0 /* OrderSummaryViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OrderSummaryViewController.swift; sourceTree = "<group>"; };
@@ -106,6 +108,15 @@
 			name = Pods;
 			sourceTree = "<group>";
 		};
+		AA24253120A5828400C178E4 /* ViewControllers */ = {
+			isa = PBXGroup;
+			children = (
+				AA97579720A519A700E012B0 /* OrderSummaryViewController.swift */,
+				AA24252F20A5827A00C178E4 /* ProvinceViewController.swift */,
+			);
+			path = ViewControllers;
+			sourceTree = "<group>";
+		};
 		AA97578920A519A600E012B0 = {
 			isa = PBXGroup;
 			children = (
@@ -135,7 +146,7 @@
 				AA9757C520A519E000E012B0 /* Misc */,
 				AA9757C620A51A5100E012B0 /* Services */,
 				AA9757C420A519D100E012B0 /* Storyboards */,
-				AA97579720A519A700E012B0 /* OrderSummaryViewController.swift */,
+				AA24253120A5828400C178E4 /* ViewControllers */,
 				AA9757A120A519A700E012B0 /* Info.plist */,
 			);
 			path = "Shopify-Winter-2018-Challenge";
@@ -491,6 +502,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				AA24253020A5827A00C178E4 /* ProvinceViewController.swift in Sources */,
 				AA9757CA20A520D100E012B0 /* ShopifyAPIClient.swift in Sources */,
 				AA97579820A519A700E012B0 /* OrderSummaryViewController.swift in Sources */,
 				AA97579620A519A700E012B0 /* AppDelegate.swift in Sources */,
