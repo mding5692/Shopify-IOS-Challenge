@@ -23,9 +23,14 @@ class OrderSummaryViewController: UIViewController {
 
     // MARK: -- Generates Shopify order summary for province, year, etc using completionHandlers
     fileprivate func generateOrderSummary() {
-        
+        // Grabs 2017 total order count
         shopifyClient.generateOrderSummaryFor2017() { total2017OrdersNum in
             self.numOrdersLabel.text = "\(total2017OrdersNum)"
+        }
+        
+        // Grabs orders by province
+        shopifyClient.generateOrderSummaryByProvince() { provinceDataDict in
+            print(provinceDataDict)
         }
         
     }

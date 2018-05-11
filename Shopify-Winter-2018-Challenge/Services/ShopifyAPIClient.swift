@@ -21,6 +21,36 @@ class ShopifyAPIClient {
     var shopifyDataGrabbedAlready = false
     var shopifyDataCache = JSON()
     
+    // MARK: -- Summarizes order for 2017 year
+    public func generateOrderSummaryFor2017(completion: @escaping (_ total2017Orders: Int) -> Void) {
+        grabShopifyStoreData() { response in
+            guard let total2017Orders = self.countTotal2017Orders(for: response) as? Int,
+                total2017Orders > 0 else {
+                    print("Error grabbing total orders for 2017")
+                    completion(-1)
+                    return
+            }
+            
+            print("Generates number of orders in 2017")
+            completion(total2017Orders)
+        }
+    }
+    
+    // MARK: -- Summarizes order numbers by province
+    public func generateOrderSummaryByProvince(completion: @escaping (_ provinceDataDict: [String: Int]) -> Void) {
+        grabShopifyStoreData() { response in
+            guard let provinceDataDict = self.countOrdersByProvince(for: response) as? [String: Int],
+                !provinceDataDict.isEmpty else {
+                    print("Error grabbing total orders for each province")
+                    completion([String: Int]())
+                    return
+            }
+            
+            print("Generates number of orders by province")
+            completion(provinceDataDict)
+        }
+    }
+    
     // MARK: -- Grabs the store data for Shopify Store using link
     fileprivate func grabShopifyStoreData(completion: @escaping (_ storeDataJSON: JSON) -> Void) {
         // Grabs from cache if already grabbed shopify data
@@ -59,21 +89,6 @@ class ShopifyAPIClient {
         }
     }
     
-    // MARK: -- Summarizes order for 2017 year
-    public func generateOrderSummaryFor2017(completion: @escaping (_ total2017Orders: Int) -> Void) {
-        grabShopifyStoreData() { response in
-            guard let total2017Orders = self.countTotal2017Orders(for: response) as? Int,
-                total2017Orders > 0 else {
-                    print("Error grabbing total orders for 2017")
-                    completion(-1)
-                    return
-            }
-            
-            print("Generates number of orders in 2017")
-            completion(total2017Orders)
-        }
-    }
-    
     // MARK: -- Returns total count of orders in 2017
     fileprivate func countTotal2017Orders(for dataJSON: JSON) -> Int {
         guard !dataJSON.isEmpty else {
@@ -95,4 +110,27 @@ class ShopifyAPIClient {
         return orderCount
     }
     
+    // MARK: -- Returns dictionary containing province and orders associated with province
+    fileprivate func countOrdersByProvince(for dataJSON: JSON) -> [String: Int] {
+        guard !dataJSON.isEmpty else {
+            return [String: Int]()
+        }
+        
+        var provinceDict = [String: Int]()
+        
+        // Iterates and keep tracks of order by province
+        for order in dataJSON["orders"].arrayValue {
+            guard let province: String = order["billing_address"]["province"].stringValue else {
+                continue
+            }
+            
+            if let numProvinceOrders = provinceDict[province] {
+                provinceDict[province] = numProvinceOrders + 1
+            } else {
+                provinceDict[province] = 1
+            }
+        }
+        
+        return provinceDict
+    }
 }
