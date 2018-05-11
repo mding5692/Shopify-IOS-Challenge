@@ -14,6 +14,10 @@ class OrderSummaryViewController: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        shopifyClient.generateOrderSummaryForProvinceAndYear() { storeData in
+            print(storeData)
+        }
     }
 
 }

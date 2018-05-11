@@ -8,6 +8,9 @@
 
 import UIKit
 
+// MARK: - Singletons used
+let shopifyClient = ShopifyAPIClient.main
+
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
 
