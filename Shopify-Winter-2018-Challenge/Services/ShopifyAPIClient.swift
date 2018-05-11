@@ -120,7 +120,7 @@ class ShopifyAPIClient {
         
         // Iterates and keep tracks of order by province
         for order in dataJSON["orders"].arrayValue {
-            guard let province: String = order["billing_address"]["province"].stringValue else {
+            guard let province: String = order["customer"]["default_address"]["province"].stringValue else {
                 continue
             }
             
