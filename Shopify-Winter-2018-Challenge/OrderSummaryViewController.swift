@@ -14,6 +14,13 @@ struct ProvinceOrder {
     var orderCount = -1
 }
 
+// Struct used to store 2017 order data
+struct OrderData {
+    var email = ""
+    var createdDate = ""
+    var totalPrice = ""
+}
+
 // Shows the order summary for the store data gained from the Shopify Store
 
 class OrderSummaryViewController: UIViewController, UITableViewDelegate, UITableViewDataSource {
@@ -21,10 +28,11 @@ class OrderSummaryViewController: UIViewController, UITableViewDelegate, UITable
     // UI Items
     @IBOutlet weak var numOrdersLabel: UILabel!
     @IBOutlet weak var orderByProvinceTableView: UITableView!
-    
+    @IBOutlet weak var ordersByYearTableView: UITableView!
     
     // Data
     var provinceData = [ProvinceOrder]()
+    var yearlyOrderData = [OrderData]()
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -32,6 +40,8 @@ class OrderSummaryViewController: UIViewController, UITableViewDelegate, UITable
         // Sets up tableView delegate and data sources
         orderByProvinceTableView.delegate = self
         orderByProvinceTableView.dataSource = self
+        ordersByYearTableView.delegate = self
+        ordersByYearTableView.dataSource = self
         
         generateOrderSummary()
     }
@@ -56,6 +66,12 @@ class OrderSummaryViewController: UIViewController, UITableViewDelegate, UITable
             self.orderByProvinceTableView.reloadData()
         }
         
+        // Grabs order by year
+        shopifyClient.generateFirstTenOrdersOf2017() { orderData in
+            self.yearlyOrderData = orderData
+            self.ordersByYearTableView.reloadData()
+        }
+        
     }
     
 }
@@ -64,6 +80,10 @@ class OrderSummaryViewController: UIViewController, UITableViewDelegate, UITable
 extension OrderSummaryViewController {
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        if tableView == ordersByYearTableView {
+            return yearlyOrderData.count
+        }
+        
         return provinceData.count
     }
     
@@ -72,6 +92,14 @@ extension OrderSummaryViewController {
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        if tableView == ordersByYearTableView {
+            let cell = tableView.dequeueReusableCell(withIdentifier: "yearCell")
+            
+            
+            cell?.textLabel?.text = "email: \(yearlyOrderData[indexPath.row].email), date: \(yearlyOrderData[indexPath.row].createdDate), total price: \(yearlyOrderData[indexPath.row].totalPrice)"
+            return cell!
+        }
+        
         let cell = tableView.dequeueReusableCell(withIdentifier: "cell")
         cell?.textLabel?.text = "\(provinceData[indexPath.row].orderCount) orders from \(provinceData[indexPath.row].province)"
         return cell!

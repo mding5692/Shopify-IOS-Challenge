@@ -51,17 +51,33 @@ class ShopifyAPIClient {
         }
     }
     
+    // MARK: -- Summarizes first ten orders in 2017
+    public func generateFirstTenOrdersOf2017(completion: @escaping (_ orderData: [OrderData]) -> Void) {
+        grabShopifyStoreData() { response in
+            guard let orderData = self.grabTopTenOrderIn2017(for: response) as? [OrderData],
+                !orderData.isEmpty else {
+                    print("Error grabbing first 10 orders for 2017")
+                    completion([OrderData]())
+                    return
+            }
+            
+            print("Generates first ten orders of 2017")
+            completion(orderData)
+        }
+    }
+    
     // MARK: -- Grabs the store data for Shopify Store using link
     fileprivate func grabShopifyStoreData(completion: @escaping (_ storeDataJSON: JSON) -> Void) {
         // Grabs from cache if already grabbed shopify data
-        guard !shopifyDataGrabbedAlready else {
+        guard !shopifyDataGrabbedAlready || shopifyDataCache.isEmpty else {
+            print("Accesses shopify data from cache")
             completion(shopifyDataCache)
             return
         }
         
         // Grabs store data using Alamofire request
         Alamofire.request(shopifyAPILink).validate().responseJSON { response in
-                            
+            print("Sends request to Shopify to access data")
             switch response.result {
             case .success:
                 
@@ -132,5 +148,39 @@ class ShopifyAPIClient {
         }
         
         return provinceDict
+    }
+    
+    // MARK: -- Grabs top ten orders in 2017
+    fileprivate func grabTopTenOrderIn2017(for dataJSON: JSON) -> [OrderData] {
+        guard !dataJSON.isEmpty else {
+            return [OrderData]()
+        }
+        
+        // Iterates through the orders and counts the ones in 2017
+        var orderData = [OrderData]()
+        for order in dataJSON["orders"].arrayValue {
+            guard let orderCreatedDateStr: String = order["created_at"].stringValue,
+                let orderCreatedYear: String = String(orderCreatedDateStr.prefix(4)),
+                orderCreatedYear == "2017" else {
+                    continue
+            }
+            
+            // Ensures only first 10 is grabbed
+            guard orderData.count <= 10 else {
+                break
+            }
+            
+            // Parses into OrderData Struct
+            guard let email: String = order["email"].stringValue,
+            let createdDate: String = order["created_at"].stringValue,
+            let totalPrice: String = order["total_price"].stringValue else {
+                continue
+            }
+            
+            let newOrderData = OrderData(email: email, createdDate: createdDate, totalPrice: totalPrice)
+            orderData.append(newOrderData)
+        }
+        
+        return orderData
     }
 }
