@@ -1,0 +1,6 @@
+framework module Pods_Shopify_Winter_2018_ChallengeUITests {
+  umbrella header "Pods-Shopify-Winter-2018-ChallengeUITests-umbrella.h"
+
+  export *
+  module * { export * }
+}
