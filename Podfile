@@ -8,7 +8,6 @@ target 'Shopify-Winter-2018-Challenge' do
   # Pods for Shopify-Winter-2018-Challenge
     pod 'Alamofire', '~> 4.7'
     pod 'SwiftyJSON', '~> 4.0'
-    pod 'SwiftDate', '4.5.1'
 
   target 'Shopify-Winter-2018-ChallengeTests' do
     inherit! :search_paths

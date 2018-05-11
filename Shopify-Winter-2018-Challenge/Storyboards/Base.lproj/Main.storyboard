@@ -6,6 +6,7 @@
     <dependencies>
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="13772"/>
+        <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
@@ -24,16 +25,41 @@
                                 <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <nil key="highlightedColor"/>
                             </label>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Orders in 2017" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumScaleFactor="0.5" translatesAutoresizingMaskIntoConstraints="NO" id="cDm-fr-EPC">
+                                <rect key="frame" x="16" y="80" width="130" height="21"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="21" id="cyS-OI-9u9"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="0" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumScaleFactor="0.5" translatesAutoresizingMaskIntoConstraints="NO" id="hoN-VC-txk">
+                                <rect key="frame" x="26" y="109" width="89" height="68"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="30"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
                         </subviews>
                         <color key="backgroundColor" red="0.63137254899999995" green="0.54901960780000003" blue="0.81960784310000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <constraints>
                             <constraint firstItem="G3a-8f-XjV" firstAttribute="top" secondItem="6Tk-OE-BBY" secondAttribute="top" constant="10" id="0A3-jz-yOg"/>
-                            <constraint firstAttribute="trailing" secondItem="G3a-8f-XjV" secondAttribute="trailing" id="6JZ-QZ-B1O"/>
+                            <constraint firstItem="G3a-8f-XjV" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leading" id="1bq-XZ-aiP"/>
+                            <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="cDm-fr-EPC" secondAttribute="trailing" constant="229" id="CP6-xt-Bqu"/>
+                            <constraint firstItem="hoN-VC-txk" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" constant="26" id="Ifc-m3-2tg"/>
                             <constraint firstItem="6Tk-OE-BBY" firstAttribute="bottom" secondItem="G3a-8f-XjV" secondAttribute="bottom" constant="595" id="QKb-Hw-dOl"/>
-                            <constraint firstItem="G3a-8f-XjV" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leading" id="yOA-5F-X5Y"/>
+                            <constraint firstAttribute="trailing" secondItem="G3a-8f-XjV" secondAttribute="trailing" id="eTn-5o-18m"/>
+                            <constraint firstItem="hoN-VC-txk" firstAttribute="top" secondItem="cDm-fr-EPC" secondAttribute="bottom" constant="8" symbolic="YES" id="hmt-4n-a1e"/>
+                            <constraint firstItem="cDm-fr-EPC" firstAttribute="top" secondItem="G3a-8f-XjV" secondAttribute="bottom" constant="8" symbolic="YES" id="jdf-Qz-nTl"/>
+                            <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="hoN-VC-txk" secondAttribute="trailing" constant="260" id="kn2-y8-Kij"/>
+                            <constraint firstItem="6Tk-OE-BBY" firstAttribute="bottom" secondItem="hoN-VC-txk" secondAttribute="bottom" constant="490" id="v15-J0-pFx"/>
+                            <constraint firstItem="cDm-fr-EPC" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leadingMargin" id="z3f-aJ-2xs"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="6Tk-OE-BBY"/>
                     </view>
+                    <connections>
+                        <outlet property="numOrdersLabel" destination="hoN-VC-txk" id="0dG-TM-fKF"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
             </objects>

@@ -69,22 +69,30 @@ class ShopifyAPIClient {
                     return
             }
             
-            print("Finished analysing store data and generates order summary")
+            print("Generates number of orders in 2017")
             completion(total2017Orders)
         }
     }
     
-    // Returns total count of orders in 2017
+    // MARK: -- Returns total count of orders in 2017
     fileprivate func countTotal2017Orders(for dataJSON: JSON) -> Int {
         guard !dataJSON.isEmpty else {
             return -1
         }
         
+        // Iterates through the orders and counts the ones in 2017
         var orderCount = 0
-        
-        
-        
-        return -1
+        for order in dataJSON["orders"].arrayValue {
+            guard let orderCreatedDateStr: String = order["created_at"].stringValue,
+                let orderCreatedYear: String = String(orderCreatedDateStr.prefix(4)),
+                orderCreatedYear == "2017" else {
+                continue
+            }
+            
+            orderCount += 1
+        }
+
+        return orderCount
     }
     
 }
