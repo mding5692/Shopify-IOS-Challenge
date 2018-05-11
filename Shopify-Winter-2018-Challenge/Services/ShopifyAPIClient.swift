@@ -66,6 +66,22 @@ class ShopifyAPIClient {
         }
     }
     
+    // MARK: -- Groups orders by province
+    public func groupOrdersByProvince(completion: @escaping (_ orderData: [ProvinceOrderData]) -> Void) {
+        grabShopifyStoreData() { response in
+            guard let provinceData = self.groupJSONOrdersByProvince(for: response) as? [ProvinceOrderData],
+                !provinceData.isEmpty else {
+                    print("Error groupping orders by province")
+                    completion([ProvinceOrderData]())
+                    return
+            }
+            
+            print("Groups orders by province")
+            completion(provinceData)
+        }
+        
+    }
+    
     // MARK: -- Grabs the store data for Shopify Store using link
     fileprivate func grabShopifyStoreData(completion: @escaping (_ storeDataJSON: JSON) -> Void) {
         // Grabs from cache if already grabbed shopify data
@@ -182,5 +198,47 @@ class ShopifyAPIClient {
         }
         
         return orderData
+    }
+    
+    // MARK: -- Handles putting orders in JSON into provincial groups
+    fileprivate func groupJSONOrdersByProvince(for dataJSON: JSON) -> [ProvinceOrderData] {
+        guard !dataJSON.isEmpty else {
+            return [ProvinceOrderData]()
+        }
+        
+        // Iterates through the orders and groups by province
+        var provinceData = [ProvinceOrderData]()
+        var tempProvinceData = [String: [OrderInfo]]()
+        for order in dataJSON["orders"].arrayValue {
+            guard let province: String = order["customer"]["default_address"]["province"].stringValue,
+            !province.isEmpty else {
+                continue
+            }
+
+            // Parses into OrderData Struct
+            guard let orderID: Int = order["id"].intValue,
+                let totalPrice: String = order["total_price"].stringValue else {
+                    continue
+            }
+            
+            let newOrderInfo = OrderInfo(province: province, orderID: orderID, totalPrice: totalPrice)
+            
+            // Adds to provinceData
+            if var provinceDataSet = tempProvinceData[province] {
+                provinceDataSet.append(newOrderInfo)
+                tempProvinceData[province] = provinceDataSet
+            } else {
+                tempProvinceData[province] = [newOrderInfo]
+            }
+            
+        }
+        
+        // Converts from dictionary to struct
+        for (province, provinceDataSet) in tempProvinceData {
+            let newProvinceData = ProvinceOrderData(province: province, provinceOrders: provinceDataSet)
+            provinceData.append(newProvinceData)
+        }
+        
+        return provinceData
     }
 }

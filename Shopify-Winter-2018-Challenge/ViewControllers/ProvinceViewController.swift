@@ -17,7 +17,7 @@ struct ProvinceOrderData {
 // Struct storing order info
 struct OrderInfo {
     var province = ""
-    var orderID = ""
+    var orderID = -1
     var totalPrice = ""
 }
 
@@ -37,6 +37,18 @@ class ProvinceViewController: UIViewController, UITableViewDelegate, UITableView
         // Sets up tableView delegate and data sources
         provincesTableView.delegate = self
         provincesTableView.dataSource = self
+        
+        // Grabs orders and then groups them together via province
+        shopifyClient.groupOrdersByProvince() { provinceSections in
+            
+            // Sorts provinceData alphabetically
+            self.provinceSections = provinceSections.sorted {
+                $0.province < $1.province
+            }
+            
+            self.provincesTableView.reloadData()
+        }
+        
     }
     
 }
@@ -58,7 +70,13 @@ extension ProvinceViewController {
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "provinceCell") as! UITableViewCell
-        cell.textLabel?.text = ""
+        
+        // Grabs data
+        let provinceDataSet = provinceSections[indexPath.section].provinceOrders
+        let provinceOrder = provinceDataSet[indexPath.row]
+        
+        cell.textLabel?.text = "Order ID: \(provinceOrder.orderID), Total Price: \(provinceOrder.totalPrice)"
+        
         return cell
     }
 }
